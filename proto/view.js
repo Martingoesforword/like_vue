@@ -14,6 +14,7 @@ var h5;
 
 var eventMng = require("./eventManager");
 var triggerJudgement = require("./triggerJudgement");
+var DataUtil = require("./dataTree").utils;
 
 //绑定UI和事件处理
 eventMng.bindUIInterface(h5);
@@ -34,6 +35,14 @@ module.exports = {
         eventMng.bindUIInterface(this);       //onUIEvent
     },
 
+    onBindInputCalcState: function (data) {
+        //将零碎性的UI控件集合 的 enable属性，visible属性等和一个 表达式进行绑定，如果表达式的值发生了变动（也就是其中一环发生变动），则需要重新计算，并以计算值参考如何调整UI控件的属性
+        var ctl = h5.getElementById("clickButton");
+
+        var calcDesc = [data["clickTimes"], "*", "1"];
+        DataUtil.setCalcRelative(ctl, "visible", data, calcDesc);
+    },
+
     onUIEvent: function (e) {
         //event通知发生事件
 
@@ -42,5 +51,5 @@ module.exports = {
 
         //同时，raw事件会在io管理中传递给 法官，法官判断之后，进入事件处理环节
         triggerJudgement.onPostJudgement(e);
-    }
+    },
 }

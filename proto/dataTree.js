@@ -11,6 +11,11 @@ module.exports = {
     },
 
     utils: {
+        setCalcRelative: function (ctl, attr, calcDesc) {
+            //将计算队列中的每个值的变动通知订阅到 ctl的 calcRelative属性
+
+        },
+
         Hijack: function (requireLogic, dataRoot, dataName) {
             //如果已经有usingLogic，认定已经有劫持逻辑了
             //要么你可以向劫持逻辑申请转劫持，要么就返回false
