@@ -3,8 +3,8 @@
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-var Data = require("./dataTree").data;
-var DataUtils = require("./dataTree").utils;
+var Data = require("../dataTree").data;
+var DataUtils = require("../dataTree").utils;
 
 
 var logicBody = function() {
@@ -65,7 +65,7 @@ var logicBody = function() {
 
     //劫持数据后的请求，例如get，set
     this.onHijack = function (repostRequest) {
-        var hijackType = repostRequest["type"];
+        var hijackType = repostRequest['type'];
         switch (hijackType) {
             case "set": {
                 repostRequest.returnValue = "操作中，请勿处理";

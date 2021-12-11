@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试likevue框架</title>
+</head>
+<body>
+
+<button id="close">触发logicMng的InterruptedAll</button>
+
+<div>
+    <h3>点击次数:</h3>
+    <h4 id="clickTimes">like this: '0'</h4>
+</div>
+
+<!--
+view需要遍历
+-->
+<button id="clickAddOne" onclick="onTrigger('clickAddOne')">触发logic加一逻辑</button>
+
+<script src="./view.js"></script>
+
+<!--
+演示程序从view开始，但是likevue框架应该是从逻辑开始，view是logic的一个IO
+这里已经定义了一个view，view的
+-->
+<script src="./logic.js"></script>
+
+</body>
+</html>
