@@ -18,6 +18,10 @@ var logicViewTimes = new logicBase({
         });
     },
 
+    onInterrupt: function () {
+
+    }
+
 });
 
 var logicAddOne = new logicBase({
@@ -26,13 +30,23 @@ var logicAddOne = new logicBase({
 
     onExc: function () {
         //添加对db中dbPath的监视，并通知dbPath数据的逻辑体集合
-        utils.logicUseData(this);
+        var flag = utils.logicUseData(this);
 
-        //执行逻辑
-        this.db[this.dataPath].__DATA += 1;
-
-        utils.logicReleaseData(this);
+        if(flag) {
+            //执行逻辑
+            var self = this;
+            self.db[self.dataPath].__DATA -= 1;
+            setTimeout(()=>{
+                self.db[self.dataPath].__DATA += 2;
+                utils.logicReleaseData(this);
+            }, 5000);
+        }
     },
+
+    onInterrupt: function () {
+        console.error("我正在使用这个数据，你不能拿走！");
+        throw new Error("我正在使用这个数据，你不能拿走！");
+    }
 });
 
 

@@ -8,4 +8,6 @@ window.LIKE_LOGIC = function (initLogic) {
     this.onExc = initLogic["onExc"];
 
     this.onExchange = initLogic["onExchange"];
+
+    this.onInterrupt = initLogic["onInterrupt"];
 }

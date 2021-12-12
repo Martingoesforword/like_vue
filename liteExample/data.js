@@ -8,6 +8,8 @@ window.LIKE_DATA = {
     }
 }
 
+window.LIKE_DATA_RUNTIME = [];
+
 window.LIKE_DATA_UTILS = {
     bindingViewLogic: function (view, logic) {
         logic.views.push(view);
@@ -20,11 +22,18 @@ window.LIKE_DATA_UTILS = {
     initLogic: function (logic, db, dataPath) {
         logic.db = db;
         logic.dataPath = dataPath;
+
+        window.LIKE_DATA_RUNTIME[dataPath] = db[dataPath];
     },
 
     logicUseData: function (logic) {
         var data = logic.db[logic.dataPath];
+
+        if(data.__RT_META.__OWNER) {
+            return false;
+        }
         data.__RT_META.__OWNER = logic;
+        return true;
     },
 
     logicReleaseData: function (logic) {
