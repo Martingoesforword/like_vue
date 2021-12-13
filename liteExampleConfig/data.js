@@ -11,8 +11,6 @@ window.LIKE_DATA = {
     }
 }
 
-window.LIKE_DATA_RUNTIME = [];
-
 window.LIKE_DATA_UTILS = {
     getDataByPath: function (db, dataPath) {
         var staticData = db.staticData;
@@ -38,7 +36,7 @@ window.LIKE_DATA_UTILS = {
         logic.db = db;
         logic.dataPath = dataPath;
 
-        window.LIKE_DATA_RUNTIME[dataPath] = db[dataPath];
+        window.LIKE_DATA.__DATA_RUNTIME[dataPath] = db[dataPath];
     },
 
     logicUseData: function (logic) {
