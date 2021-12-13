@@ -1,45 +1,44 @@
-var logicBase = window.LIKE_LOGIC;
+var logicTemples = window.LIKE_LOGIC;
 var utils = window.LIKE_DATA_UTILS;
 var db = window.LIKE_DATA;
 
-var logicViewTimes = new logicBase({
+
+//设计和实现简单逻辑体
+var logicViewTimes = new logicTemples.viewCatLogic({
     logicName: "logicViewTimes",
 
-    onExc: function () {
+    onFire: function () {
         //添加对db中dbPath的监视，并通知dbPath数据的逻辑体集合
-        var data = this.db[this.dataPath];
+        var data = utils.getDataByPath(this.db, this.dataPath);
         data.__RT_META.__WATCHERS[this.logicName] = this;
     },
 
     onExchange: function (runTimeInfo) {
-        var self = this;
-        this.views.forEach((view)=>{
-            view.onUpdate(runTimeInfo);
+        this.taskers.forEach((tasker)=>{
+            tasker.onUpdate(runTimeInfo);
         });
     },
-
-    onInterrupt: function () {
-
-    }
-
 });
-
-var logicAddOne = new logicBase({
+var logicAddOne = new logicTemples.baseLogic({
     logicName: "logicAddOne",
-    views: [],
 
-    onExc: function () {
+    onFire: function () {
         //添加对db中dbPath的监视，并通知dbPath数据的逻辑体集合
         var flag = utils.logicUseData(this);
 
         if(flag) {
             //执行逻辑
-            var self = this;
-            self.db[self.dataPath].__DATA -= 1;
-            setTimeout(()=>{
-                self.db[self.dataPath].__DATA += 2;
+            var data = utils.getDataByPath(this.db, this.dataPath);
+            if(data) {
+                data.__DATA -= 1;
+                setTimeout(()=>{
+                    data.__DATA += 2;
+                    utils.logicReleaseData(this);
+                }, 5000);
+            }
+            else {
                 utils.logicReleaseData(this);
-            }, 100);
+            }
         }
     },
 
@@ -50,9 +49,16 @@ var logicAddOne = new logicBase({
 });
 
 
-utils.bindingViewLogic(mainView, logicViewTimes);
-utils.bindingTriggerLogic(mainView, logicAddOne);
+//将逻辑和io绑定，连接好火炉的烟囱，研究好火炉的开关操作
+utils.bindingViewLogic(viewTasker, logicViewTimes);
+utils.bindingTriggerLogic(viewTasker, logicAddOne);
 
-utils.initLogic(logicViewTimes, db, "clickTimes");
-logicViewTimes.onExc();
-utils.initLogic(logicAddOne, db, "clickTimes");
+
+//使用数据驱动逻辑，给火炉加入木炭
+utils.driveLogic(db, "clickTimes", logicViewTimes);
+utils.driveLogic(db, "clickTimes", logicAddOne);
+
+
+//开始执行逻辑，点燃火炉
+logicViewTimes.onFire();
+

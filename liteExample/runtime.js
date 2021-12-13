@@ -5,7 +5,7 @@ var db = window.LIKE_DATA;
 var logicViewTimes = new logicBase({
     logicName: "logicViewTimes",
 
-    onExc: function () {
+    onFire: function () {
         //添加对db中dbPath的监视，并通知dbPath数据的逻辑体集合
         var data = this.db[this.dataPath];
         data.__RT_META.__WATCHERS[this.logicName] = this;
@@ -28,7 +28,7 @@ var logicAddOne = new logicBase({
     logicName: "logicAddOne",
     views: [],
 
-    onExc: function () {
+    onFire: function () {
         //添加对db中dbPath的监视，并通知dbPath数据的逻辑体集合
         var flag = utils.logicUseData(this);
 
@@ -54,5 +54,5 @@ utils.bindingViewLogic(mainView, logicViewTimes);
 utils.bindingTriggerLogic(mainView, logicAddOne);
 
 utils.initLogic(logicViewTimes, db, "clickTimes");
-logicViewTimes.onExc();
+logicViewTimes.onFire();
 utils.initLogic(logicAddOne, db, "clickTimes");

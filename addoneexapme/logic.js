@@ -13,7 +13,7 @@ var AddOneLogicBody = {
     },
 
     //长时任务
-    onExc :async function (master)  {
+    onFire :async function (master)  {
         var flag = this.onPrepareRes();
         //如果无法准备好必要数据，则直接返回
         if(!flag) {
@@ -94,7 +94,7 @@ var LazyDataLogicBody = {
     },
 
     //长时任务
-    onExc : function (master)  {
+    onFire : function (master)  {
 
     },
 

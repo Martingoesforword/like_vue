@@ -27,7 +27,7 @@ window.LIKE_DATA_UTILS = {
     },
 
     logicUseData: function (logic) {
-        var data = logic.db[logic.dataPath];
+        var data = utils.getDataByPath(logic.db, logic.dataPath);
 
         if(data.__RT_META.__OWNER) {
             return false;
@@ -37,7 +37,7 @@ window.LIKE_DATA_UTILS = {
     },
 
     logicReleaseData: function (logic) {
-        var data = logic.db[logic.dataPath];
+        var data = utils.getDataByPath(logic.db, logic.dataPath);
         data.__RT_META.__OWNER = null;
         var watchers = data.__RT_META.__WATCHERS;
         for (var watcherName in watchers) {

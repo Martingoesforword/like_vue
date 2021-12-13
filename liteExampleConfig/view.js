@@ -1,13 +1,13 @@
 
 //这就是view
-var mainView = {
+var viewTasker = {
     onUpdate: function (runTimeInfo) {
         var times = runTimeInfo;
         document.getElementById("clickTimes").innerText = times;
     },
 
     callLogicAddOne: function () {
-        logicAddOne.onExc();
+        logicAddOne.onFire();
     },
 
     callInterruptAllLogics: function () {

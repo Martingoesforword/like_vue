@@ -15,7 +15,7 @@ var logicBody = function() {
         //初始化逻辑体，例如CPU资源等
     };
 
-    this.onExc = function () {
+    this.onFire = function () {
         var flag = this.onPrepareRes();
         //如果无法准备好必要数据，则直接返回
         if(!flag) {

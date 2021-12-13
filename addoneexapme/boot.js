@@ -68,7 +68,7 @@ var workMaster = {
                 // 逻辑被触发的时候，将会执行相应逻辑，但在逻辑上应该是异步的，但也可以是同步的
                 // 将self传入的意思是，逻辑体内部需要给工头备注
                 // 自己正在做什么事情，有没有做完这个事情等
-                triggerLogic.onExc(self, ...arguments);
+                triggerLogic.onFire(self, ...arguments);
             };
         });
 

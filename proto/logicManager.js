@@ -22,7 +22,7 @@ var logicManager = {
         var logic = this.excuteSubLogics["clickRecord"];
 
         //logic是长时操作，同步返回
-        return logic.onExc();
+        return logic.onFire();
     },
 
     onInterriptAll: function () {

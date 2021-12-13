@@ -5,7 +5,7 @@ window.LIKE_LOGIC = function (initLogic) {
     //设计logic必要接口，例如
     this.views = [];
     //逻辑运行时函数
-    this.onExc = initLogic["onExc"];
+    this.onFire = initLogic["onFire"];
 
     this.onExchange = initLogic["onExchange"];
 
